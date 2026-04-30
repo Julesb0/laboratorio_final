@@ -8,6 +8,30 @@ class CalificacionForm(forms.ModelForm):
         model = Calificacion
         exclude = ['promedio']
 
+    def clean_nota1(self):
+        nota = self.cleaned_data.get('nota1')
+
+        if nota < 0 or nota > 5:
+            raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
+
+        return nota
+
+    def clean_nota2(self):
+        nota = self.cleaned_data.get('nota2')
+
+        if nota < 0 or nota > 5:
+            raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
+
+        return nota
+
+    def clean_nota3(self):
+        nota = self.cleaned_data.get('nota3')
+
+        if nota < 0 or nota > 5:
+            raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
+
+        return nota
+
 
 class RegistroUsuarioForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label='Contraseña')
