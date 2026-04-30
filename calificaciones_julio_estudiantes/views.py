@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CalificacionForm, RegistroUsuarioForm
 from .models import Calificacion
+from django.contrib import messages
 
 
 def registro_usuario(request):
@@ -41,6 +42,7 @@ def crear_calificacion(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'La calificación fue registrada correctamente.') 
             return redirect('listar_calificaciones')
     else:
         form = CalificacionForm()
@@ -59,6 +61,7 @@ def editar_calificacion(request, id):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'La calificación fue actualizada correctamente.')
             return redirect('listar_calificaciones')
     else:
         form = CalificacionForm(instance=calificacion)
@@ -75,6 +78,7 @@ def eliminar_calificacion(request, id):
 
     if request.method == 'POST':
         calificacion.delete()
+        messages.success(request, 'La calificación fue eliminada correctamente.')
         return redirect('listar_calificaciones')
 
     return render(request, 'calificaciones/eliminar.html', {
