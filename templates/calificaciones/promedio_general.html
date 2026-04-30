@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+
+<h2>Promedio general</h2>
+
+{% if promedio_general is not None %}
+<p>
+  El promedio general de todos los estudiantes es:
+  <strong>{{ promedio_general|floatformat:2 }}</strong>
+</p>
+{% else %}
+<p>No hay calificaciones registradas.</p>
+{% endif %}
+
+<a href="{% url 'listar_calificaciones' %}">Volver</a>
+
+{% endblock %}
