@@ -8,29 +8,62 @@ class CalificacionForm(forms.ModelForm):
         model = Calificacion
         exclude = ['promedio']
 
-    def clean_nota1(self):
-        nota = self.cleaned_data.get('nota1')
+        labels = {
+            'nombre_estudiante': 'Nombre del estudiante',
+            'identificacion': 'Identificación',
+            'asignatura': 'Asignatura',
+            'nota1': 'Nota 1',
+            'nota2': 'Nota 2',
+            'nota3': 'Nota 3',
+        }
+
+        widgets = {
+            'nombre_estudiante': forms.TextInput(attrs={
+                'placeholder': 'Ejemplo: Ana Martínez'
+            }),
+            'identificacion': forms.TextInput(attrs={
+                'placeholder': 'Ejemplo: 1234567890'
+            }),
+            'asignatura': forms.TextInput(attrs={
+                'placeholder': 'Ejemplo: Matemáticas'
+            }),
+            'nota1': forms.NumberInput(attrs={
+                'min': '0',
+                'max': '5',
+                'step': '0.01',
+                'placeholder': '0.00'
+            }),
+            'nota2': forms.NumberInput(attrs={
+                'min': '0',
+                'max': '5',
+                'step': '0.01',
+                'placeholder': '0.00'
+            }),
+            'nota3': forms.NumberInput(attrs={
+                'min': '0',
+                'max': '5',
+                'step': '0.01',
+                'placeholder': '0.00'
+            }),
+        }
+
+    def validar_nota(self, nota):
+        if nota is None:
+            return nota
 
         if nota < 0 or nota > 5:
             raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
 
         return nota
+
+    def clean_nota1(self):
+        return self.validar_nota(self.cleaned_data.get('nota1'))
 
     def clean_nota2(self):
-        nota = self.cleaned_data.get('nota2')
-
-        if nota < 0 or nota > 5:
-            raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
-
-        return nota
+        return self.validar_nota(self.cleaned_data.get('nota2'))
 
     def clean_nota3(self):
-        nota = self.cleaned_data.get('nota3')
-
-        if nota < 0 or nota > 5:
-            raise forms.ValidationError('La nota debe estar entre 0.0 y 5.0.')
-
-        return nota
+        return self.validar_nota(self.cleaned_data.get('nota3'))
 
 
 class RegistroUsuarioForm(forms.ModelForm):
