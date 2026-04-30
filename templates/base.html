@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sistema de Calificaciones</title>
+  </head>
+  <body>
+    <h1>Sistema de Calificaciones</h1>
+
+    <nav>
+      {% if user.is_authenticated %}
+      <a href="{% url 'listar_calificaciones' %}">Lista</a> |
+      <a href="{% url 'crear_calificacion' %}">Crear calificación</a> |
+      <a href="{% url 'promedio_general' %}">Promedio general</a> |
+
+      <form action="{% url 'logout' %}" method="post" style="display: inline">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Iniciar sesión</a> |
+      <a href="{% url 'registro_usuario' %}">Registrarse</a>
+      {% endif %}
+    </nav>
+
+    <hr />
+
+    {% block content %} {% endblock %}
+  </body>
+</html>
