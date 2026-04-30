@@ -13,3 +13,21 @@ class CalificacionAdmin(admin.ModelAdmin):
         'nota3',
         'promedio',
     )
+
+    search_fields = (
+        'nombre_estudiante',
+        'identificacion',
+        'asignatura',
+    )
+
+    list_filter = (
+        'asignatura',
+    )
+
+    readonly_fields = (
+        'promedio',
+    )
+
+    ordering = (
+        'nombre_estudiante',
+    )
