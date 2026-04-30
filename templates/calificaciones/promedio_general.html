@@ -1,41 +1,54 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
-<div class="mx-auto max-w-2xl">
-  <div
-    class="rounded-3xl border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur"
-  >
-    <p
-      class="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-sky-300"
-    >
-      Estadística general
-    </p>
+{% block content %}
 
-    <h2 class="text-4xl font-black text-white">Promedio general</h2>
+<div class="mx-auto max-w-4xl">
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-sky-300">
+            Estadística general
+        </p>
 
-    {% if promedio_general is not None %}
-    <div
-      class="mx-auto mt-8 flex h-40 w-40 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 shadow-lg shadow-sky-500/20"
-    >
-      <span class="text-5xl font-black text-sky-300">
-        {{ promedio_general|floatformat:2 }}
-      </span>
+        <h2 class="text-4xl font-black text-white">
+            Promedio general
+        </h2>
+
+        {% if promedio_general is not None %}
+            <div class="mx-auto mt-8 flex h-40 w-40 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 shadow-lg shadow-sky-500/20">
+                <span class="text-5xl font-black text-sky-300">
+                    {{ promedio_general|floatformat:2 }}
+                </span>
+            </div>
+
+            <p class="mt-6 text-slate-300">
+                Este promedio fue calculado con todos los registros guardados en la base de datos.
+            </p>
+        {% else %}
+            <p class="mt-6 text-slate-400">
+                No hay calificaciones registradas.
+            </p>
+        {% endif %}
+
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+            <div class="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                <p class="text-sm text-slate-400">Registros</p>
+                <p class="mt-2 text-3xl font-black text-white">{{ total_registros }}</p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                <p class="text-sm text-slate-400">Aprobados</p>
+                <p class="mt-2 text-3xl font-black text-emerald-300">{{ total_aprobados }}</p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-slate-950/50 p-5">
+                <p class="text-sm text-slate-400">Reprobados</p>
+                <p class="mt-2 text-3xl font-black text-red-300">{{ total_reprobados }}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'listar_calificaciones' %}" class="mt-8 inline-flex rounded-2xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/25 transition hover:bg-sky-400">
+            Volver al listado
+        </a>
     </div>
-
-    <p class="mt-6 text-slate-300">
-      Este es el promedio general de todos los estudiantes registrados en el
-      sistema.
-    </p>
-    {% else %}
-    <p class="mt-6 text-slate-400">No hay calificaciones registradas.</p>
-    {% endif %}
-
-    <a
-      href="{% url 'listar_calificaciones' %}"
-      class="mt-8 inline-flex rounded-2xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/25 transition hover:bg-sky-400"
-    >
-      Volver al listado
-    </a>
-  </div>
 </div>
 
 {% endblock %}

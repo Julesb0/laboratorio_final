@@ -26,12 +26,19 @@ def registro_usuario(request):
 
 @login_required
 def listar_calificaciones(request):
-    calificaciones = Calificacion.objects.all()
-    promedio_general = Calificacion.objects.aggregate(Avg('promedio'))['promedio__avg']
+    calificaciones = Calificacion.objects.all().order_by('nombre_estudiante')
+    promedio_general = Calificacion.objects.all().aggregate(Avg('promedio'))['promedio__avg']
+
+    total_registros = calificaciones.count()
+    total_aprobados = calificaciones.filter(promedio__gte=3).count()
+    total_reprobados = calificaciones.filter(promedio__lt=3).count()
 
     return render(request, 'calificaciones/listar.html', {
         'calificaciones': calificaciones,
-        'promedio_general': promedio_general
+        'promedio_general': promedio_general,
+        'total_registros': total_registros,
+        'total_aprobados': total_aprobados,
+        'total_reprobados': total_reprobados,
     })
 
 
@@ -88,8 +95,16 @@ def eliminar_calificacion(request, id):
 
 @login_required
 def promedio_general(request):
-    promedio = Calificacion.objects.aggregate(Avg('promedio'))['promedio__avg']
+    calificaciones = Calificacion.objects.all()
+    promedio = calificaciones.aggregate(Avg('promedio'))['promedio__avg']
+
+    total_registros = calificaciones.count()
+    total_aprobados = calificaciones.filter(promedio__gte=3).count()
+    total_reprobados = calificaciones.filter(promedio__lt=3).count()
 
     return render(request, 'calificaciones/promedio_general.html', {
-        'promedio_general': promedio
+        'promedio_general': promedio,
+        'total_registros': total_registros,
+        'total_aprobados': total_aprobados,
+        'total_reprobados': total_reprobados,
     })

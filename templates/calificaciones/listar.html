@@ -28,32 +28,32 @@
   </a>
 </section>
 
-<section class="mb-8 grid gap-5 md:grid-cols-3">
-  <div
-    class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur"
-  >
-    <p class="text-sm font-medium text-slate-400">Registros</p>
-    <h3 class="mt-2 text-4xl font-black text-white">
-      {{ calificaciones|length }}
-    </h3>
-  </div>
+<section class="mb-8 grid gap-5 md:grid-cols-4">
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+        <p class="text-sm font-medium text-slate-400">Registros</p>
+        <h3 class="mt-2 text-4xl font-black text-white">{{ total_registros }}</h3>
+    </div>
 
-  <div
-    class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur"
-  >
-    <p class="text-sm font-medium text-slate-400">Promedio general</p>
-    <h3 class="mt-2 text-4xl font-black text-sky-300">
-      {% if promedio_general is not None %} {{ promedio_general|floatformat:2 }}
-      {% else %} 0.00 {% endif %}
-    </h3>
-  </div>
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+        <p class="text-sm font-medium text-slate-400">Promedio general</p>
+        <h3 class="mt-2 text-4xl font-black text-sky-300">
+            {% if promedio_general is not None %}
+                {{ promedio_general|floatformat:2 }}
+            {% else %}
+                0.00
+            {% endif %}
+        </h3>
+    </div>
 
-  <div
-    class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur"
-  >
-    <p class="text-sm font-medium text-slate-400">Estado</p>
-    <h3 class="mt-2 text-2xl font-black text-emerald-300">Activo</h3>
-  </div>
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+        <p class="text-sm font-medium text-slate-400">Aprobados</p>
+        <h3 class="mt-2 text-4xl font-black text-emerald-300">{{ total_aprobados }}</h3>
+    </div>
+
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+        <p class="text-sm font-medium text-slate-400">Reprobados</p>
+        <h3 class="mt-2 text-4xl font-black text-red-300">{{ total_reprobados }}</h3>
+    </div>
 </section>
 
 <section
