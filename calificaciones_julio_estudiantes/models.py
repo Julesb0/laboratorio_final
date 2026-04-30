@@ -17,5 +17,11 @@ class Calificacion(models.Model):
         self.promedio = self.calcular_promedio()
         super().save(*args, **kwargs)
 
+        @property
+    def estado(self):
+        if self.promedio >= 3:
+            return 'Aprobado'
+        return 'Reprobado'
+
     def __str__(self):
         return f'{self.nombre_estudiante} - {self.asignatura}'
