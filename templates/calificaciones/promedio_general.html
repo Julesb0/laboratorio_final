@@ -1,16 +1,41 @@
 {% extends 'base.html' %} {% block content %}
 
-<h2>Promedio general</h2>
+<div class="mx-auto max-w-2xl">
+  <div
+    class="rounded-3xl border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur"
+  >
+    <p
+      class="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-sky-300"
+    >
+      Estadística general
+    </p>
 
-{% if promedio_general is not None %}
-<p>
-  El promedio general de todos los estudiantes es:
-  <strong>{{ promedio_general|floatformat:2 }}</strong>
-</p>
-{% else %}
-<p>No hay calificaciones registradas.</p>
-{% endif %}
+    <h2 class="text-4xl font-black text-white">Promedio general</h2>
 
-<a href="{% url 'listar_calificaciones' %}">Volver</a>
+    {% if promedio_general is not None %}
+    <div
+      class="mx-auto mt-8 flex h-40 w-40 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10 shadow-lg shadow-sky-500/20"
+    >
+      <span class="text-5xl font-black text-sky-300">
+        {{ promedio_general|floatformat:2 }}
+      </span>
+    </div>
+
+    <p class="mt-6 text-slate-300">
+      Este es el promedio general de todos los estudiantes registrados en el
+      sistema.
+    </p>
+    {% else %}
+    <p class="mt-6 text-slate-400">No hay calificaciones registradas.</p>
+    {% endif %}
+
+    <a
+      href="{% url 'listar_calificaciones' %}"
+      class="mt-8 inline-flex rounded-2xl bg-sky-500 px-6 py-3 font-bold text-white shadow-lg shadow-sky-500/25 transition hover:bg-sky-400"
+    >
+      Volver al listado
+    </a>
+  </div>
+</div>
 
 {% endblock %}

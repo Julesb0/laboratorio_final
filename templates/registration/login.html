@@ -1,16 +1,32 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
-<h2>Iniciar sesión</h2>
+{% block content %}
 
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
+<div class="mx-auto max-w-md">
+    <div class="mb-8 text-center">
+        <h2 class="text-3xl font-bold text-white">Iniciar sesión</h2>
+        <p class="mt-2 text-slate-400">
+            Accede para gestionar las calificaciones registradas.
+        </p>
+    </div>
 
-  <button type="submit">Ingresar</button>
-</form>
+    <div class="form-card rounded-3xl border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-<p>
-  ¿No tienes cuenta?
-  <a href="{% url 'registro_usuario' %}">Regístrate aquí</a>
-</p>
+            <button type="submit" class="mt-4 w-full rounded-2xl bg-sky-500 px-5 py-3 font-bold text-white shadow-lg shadow-sky-500/25 transition hover:bg-sky-400">
+                Ingresar
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-slate-400">
+            ¿No tienes cuenta?
+            <a href="{% url 'registro_usuario' %}" class="font-semibold text-sky-300 hover:text-sky-200">
+                Regístrate aquí
+            </a>
+        </p>
+    </div>
+</div>
 
 {% endblock %}
