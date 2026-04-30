@@ -17,7 +17,7 @@ class Calificacion(models.Model):
         self.promedio = self.calcular_promedio()
         super().save(*args, **kwargs)
 
-        @property
+    @property
     def estado(self):
         if self.promedio >= 3:
             return 'Aprobado'
