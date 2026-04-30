@@ -2,87 +2,32 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Sistema de Calificaciones</title>
+    <title>{% block title %}Sistema de Calificaciones{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-      input,
-      select,
-      textarea {
-        width: 100%;
-        background-color: #0f172a;
-        border: 1px solid #334155;
-        color: white;
-        border-radius: 0.75rem;
-        padding: 0.65rem 0.9rem;
-        outline: none;
-        margin-top: 0.35rem;
-      }
-
-      input:focus,
-      select:focus,
-      textarea:focus {
-        border-color: #38bdf8;
-        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
-      }
-
-      label {
-        color: #cbd5e1;
-        font-size: 0.9rem;
-        font-weight: 600;
-      }
-
-      .form-card p {
-        margin-bottom: 1rem;
-      }
-
-      .helptext {
-        display: block;
-        color: #94a3b8;
-        font-size: 0.75rem;
-        margin-top: 0.25rem;
-      }
-
-      .errorlist {
-        color: #f87171;
-        font-size: 0.85rem;
-        margin-bottom: 0.5rem;
-      }
-    </style>
   </head>
 
-  <body class="min-h-screen bg-slate-950 text-slate-100">
-    <div class="fixed inset-0 -z-10">
+  <body class="min-h-screen bg-slate-50 text-slate-900">
+    <header class="border-b border-slate-200 bg-white">
       <div
-        class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950"
-      ></div>
-      <div
-        class="absolute left-20 top-20 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl"
-      ></div>
-      <div
-        class="absolute right-20 bottom-20 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"
-      ></div>
-    </div>
-
-    <header class="border-b border-white/10 bg-slate-950/70 backdrop-blur">
-      <div
-        class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5"
+        class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
       >
         <a
           href="{% url 'listar_calificaciones' %}"
-          class="flex items-center gap-3"
+          class="flex items-center gap-4"
         >
           <div
-            class="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-500 text-xl font-black text-white shadow-lg shadow-sky-500/30"
+            class="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-900 text-sm font-bold text-white"
           >
-            C
+            SC
           </div>
 
           <div>
-            <h1 class="text-xl font-bold tracking-tight text-white">
+            <h1 class="text-xl font-semibold tracking-tight text-slate-900">
               Sistema de Calificaciones
             </h1>
-            <p class="text-sm text-slate-400">Gestión académica y promedios</p>
+            <p class="text-sm text-slate-500">
+              Plataforma académica institucional
+            </p>
           </div>
         </a>
 
@@ -90,30 +35,30 @@
           {% if user.is_authenticated %}
           <a
             href="{% url 'listar_calificaciones' %}"
-            class="rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
           >
             Lista
           </a>
 
           <a
             href="{% url 'crear_calificacion' %}"
-            class="rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
           >
             Crear
           </a>
 
           <a
             href="{% url 'promedio_general' %}"
-            class="rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
           >
             Promedio
           </a>
 
-          <form action="{% url 'logout' %}" method="post">
+          <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button
               type="submit"
-              class="rounded-xl bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-300 transition hover:bg-red-500 hover:text-white"
+              class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
               Cerrar sesión
             </button>
@@ -121,14 +66,14 @@
           {% else %}
           <a
             href="{% url 'login' %}"
-            class="rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+            class="rounded-lg px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
           >
             Iniciar sesión
           </a>
 
           <a
             href="{% url 'registro_usuario' %}"
-            class="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition hover:bg-sky-400"
+            class="rounded-lg bg-blue-900 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
           >
             Registrarse
           </a>
@@ -142,7 +87,7 @@
       <div class="mb-6 space-y-3">
         {% for message in messages %}
         <div
-          class="rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-5 py-4 text-emerald-200 shadow-lg"
+          class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"
         >
           {{ message }}
         </div>

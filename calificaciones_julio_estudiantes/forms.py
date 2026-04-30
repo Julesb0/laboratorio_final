@@ -47,6 +47,18 @@ class CalificacionForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        clase_input = (
+            'mt-1 block w-full rounded-lg border border-slate-300 bg-white '
+            'px-3 py-2 text-sm text-slate-900 shadow-sm '
+            'focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-100'
+        )
+
+        for field in self.fields.values():
+            field.widget.attrs['class'] = clase_input
+
     def validar_nota(self, nota):
         if nota is None:
             return nota
@@ -67,12 +79,50 @@ class CalificacionForm(forms.ModelForm):
 
 
 class RegistroUsuarioForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput, label='Contraseña')
-    password_confirmacion = forms.CharField(widget=forms.PasswordInput, label='Confirmar contraseña')
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Ingresa una contraseña'
+        }),
+        label='Contraseña'
+    )
+
+    password_confirmacion = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Confirma tu contraseña'
+        }),
+        label='Confirmar contraseña'
+    )
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+
+        labels = {
+            'username': 'Usuario',
+            'email': 'Correo electrónico',
+            'password': 'Contraseña',
+        }
+
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'placeholder': 'Ejemplo: estudiante01'
+            }),
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Ejemplo: estudiante@correo.com'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        clase_input = (
+            'mt-1 block w-full rounded-lg border border-slate-300 bg-white '
+            'px-3 py-2 text-sm text-slate-900 shadow-sm '
+            'focus:border-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-100'
+        )
+
+        for field in self.fields.values():
+            field.widget.attrs['class'] = clase_input
 
     def clean(self):
         cleaned_data = super().clean()
